@@ -14,10 +14,10 @@ public class TestControlador {
         System.out.println("Inicial:");
         System.out.println(c.mostrarEstudiantes());
 
-        // Modificar
+        
         c.modificarNota(1, 2.0, 2.0);
 
-        // Incrementar
+        
         c.incrementarNota(2, 1.0);
 
         System.out.println("Después de cambios:");

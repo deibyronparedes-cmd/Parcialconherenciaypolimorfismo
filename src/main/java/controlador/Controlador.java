@@ -10,7 +10,6 @@ public class Controlador {
         curso = new Curso(10);
     }
 
-    // POLIMORFISMO
     public void agregarEstudiante(int cod, String nom, double nd, double nm, boolean beca) {
 
         Estudiante e;
@@ -22,6 +21,31 @@ public class Controlador {
         }
 
         curso.agregarEstudiante(e);
+    }
+
+    public void modificarNota(int cod, double nd, double nm) {
+
+        for (int i = 0; i < curso.getCantidad(); i++) {
+
+            Estudiante e = curso.getEstudiante(i);
+
+            if (e.getCodigo() == cod) {
+                e.modificarNota(nd, nm);
+            }
+        }
+    }
+
+    
+    public void incrementarNota(int cod, double valor) {
+
+        for (int i = 0; i < curso.getCantidad(); i++) {
+
+            Estudiante e = curso.getEstudiante(i);
+
+            if (e.getCodigo() == cod) {
+                e.incrementarDesarrollo(valor);
+            }
+        }
     }
 
     public String mostrarEstudiantes() {

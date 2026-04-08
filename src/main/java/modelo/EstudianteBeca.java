@@ -6,9 +6,9 @@ public class EstudianteBeca extends Estudiante {
         super(codigo, nombre, nd, nm);
     }
 
-    @Override // POLIMORFISMO
+    @Override 
     public double calcularDefinitiva() {
-        // Tiene beneficio extra
+        
         return super.calcularDefinitiva() + 0.5;
     }
 }

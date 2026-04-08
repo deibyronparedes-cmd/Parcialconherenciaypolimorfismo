@@ -1,91 +1,83 @@
 package vista;
 
-import java.util.Scanner;
-import modelo.Estudiante;
+import javax.swing.*;
+import modelo.*;
 
-public class Vista {
+public class Vista extends JFrame {
 
-    private final Scanner sc = new Scanner(System.in);
+    private final JTextField txtCodigo;
+    private final JTextField txtNombre;
 
-    public int leerCantidad() {
-        System.out.print("Ingrese número de estudiantes de tecnologia: ");
-        return sc.nextInt();
+    private final JTextField txtDesarrollo;
+    private final JTextField txtMatematica;
+    private final JButton btnAgregar;
+    private final JTextArea area;
+
+    private final Curso curso;
+
+    public Vista() {
+        curso = new Curso(10);
+
+        setTitle("Sistema de Estudiantes");
+        setSize(400, 400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(null);
+
+        JLabel l1 = new JLabel("Código:");
+        l1.setBounds(10, 10, 100, 20);
+        add(l1);
+
+        txtCodigo = new JTextField();
+        txtCodigo.setBounds(120, 10, 100, 20);
+        add(txtCodigo);
+
+        JLabel l2 = new JLabel("Nombre:");
+        l2.setBounds(10, 40, 100, 20);
+        add(l2);
+
+        txtNombre = new JTextField();
+        txtNombre.setBounds(120, 40, 100, 20);
+        add(txtNombre);
+
+        JLabel l3 = new JLabel("Desarrollo:");
+        l3.setBounds(10, 70, 100, 20);
+        add(l3);
+
+        txtDesarrollo = new JTextField();
+        txtDesarrollo.setBounds(120, 70, 100, 20);
+        add(txtDesarrollo);
+
+        JLabel l4 = new JLabel("Matemática:");
+        l4.setBounds(10, 100, 100, 20);
+        add(l4);
+
+        txtMatematica = new JTextField();
+        txtMatematica.setBounds(120, 100, 100, 20);
+        add(txtMatematica);
+
+        btnAgregar = new JButton("Agregar");
+        btnAgregar.setBounds(10, 130, 100, 30);
+        add(btnAgregar);
+
+        area = new JTextArea();
+        area.setBounds(10, 170, 350, 150);
+        add(area);
+
+        // Evento botón
+        btnAgregar.addActionListener(e -> agregar());
+
+        setVisible(true);
     }
 
-public Estudiante leerDatosEstudiante() {
+    private void agregar() {
+        int cod = Integer.parseInt(txtCodigo.getText());
+        String nom = txtNombre.getText();
+        double nd = Double.parseDouble(txtDesarrollo.getText());
+        double nm = Double.parseDouble(txtMatematica.getText());
 
-    int codigo;
+        Estudiante e = new Estudiante(cod, nom, nd, nm);
+        curso.agregarEstudiante(e);
 
-    do {
-        System.out.print("Código (mayor a 21000): ");
-        codigo = sc.nextInt();
-        if(codigo<=21000){
-            System.out.println("CODIGO INCORRECTO.INGRESE UN CODIGO VALIDO > 21000.");
-       
-        }
-    } while (codigo <= 21000);
-
-    sc.nextLine(); // limpiar buffer
-
-    System.out.print("Nombre: ");
-    String nombre = sc.nextLine();
-
-    System.out.print("Nota Desarrollo: ");
-    double notaDesarrollo = sc.nextDouble();
-
-    System.out.print("Nota Matemática: ");
-    double notaMatematica = sc.nextDouble();
-
-    return new Estudiante(codigo, nombre, notaDesarrollo, notaMatematica);
-}
-
-    public double leerLimite() {
-        System.out.print("Ingrese nota límite: ");
-        return sc.nextDouble();
-    }
-
-    public double leerIncremento() {
-        double incremento;
-    do{    
-        System.out.print("Ingrese incremento (0.0 - 0.5): ");
-        return sc.nextDouble();
-   } while (incremento < 0.0 || incremento > 0.5);    
-    }
-
-    public int leerCodigoModificar() {
-        System.out.print("Ingrese código del estudiante a modificar: ");
-        return sc.nextInt();
-    }
-
-    public double leerNuevaNotaDesarrollo() {
-        System.out.print("Nueva nota Desarrollo: ");
-        return sc.nextDouble();
-    }
-
-    public double leerNuevaNotaMatematica() {
-        System.out.print("Nueva nota Matemática: ");
-        return sc.nextDouble();
-    }
-
- public void mostrarEstudiantes(Estudiante[] lista, int cantidad) {
-
-    System.out.println("\n--- LISTADO DE ESTUDIANTES DE TECNOLOGIA ---");
-
-    for (int i = 0; i < cantidad; i++) {
-        if(lista[i]!=null){
-
-        System.out.printf(
-                "%s - %d - %.2f - %s\n",
-                lista[i].getNombre(),
-                lista[i].getCodigo(),
-                lista[i].calcularDefinitiva(),
-                lista[i].aprobar()
-        );
-    }
-    }
-}
-
-    public void mostrarMensaje(String mensaje) {
-        System.out.println(mensaje);
+        area.append(nom + " -> " + e.calcularDefinitiva() + "\n");
     }
 }
